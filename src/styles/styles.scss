@@ -1,0 +1,7 @@
+$gradient: linear-gradient(90deg, rgba(15,46,136,1) 0%, rgba(11,48,148,1) 39%, rgba(30,73,135,1) 100%);
+
+* {box-sizing: border-box; margin: 0; padding: 0;}
+body {font-family: sans-serif; background: $gradient}
+.btn-wrapper {width: 100%; text-align: center; display: flex; flex-wrap: wrap; justify-content: center; padding: 3.5% 0}
+.btn {display: block; width: 210px; border: none; background-color: white; color: #000; font-size: 18px; padding: 10px 0; border-radius: 200px; margin: 10px; cursor: pointer;}
+.hide{display: none;}

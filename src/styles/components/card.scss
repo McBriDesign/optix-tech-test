@@ -1,0 +1,8 @@
+.whole-card{font-family:'Roboto',cursive!important;margin-left:-160px;margin-top:10px}
+.deck-container,.hand-container{display:flex;flex-wrap:wrap;margin-left:180px}
+.card-container{height:282px;width:200px;background-color:#fff;background-size:cover;position:relative;border:1px solid #000;border-radius:10px;font-size:20px;text-align:center}
+.card-top,.card-center,.card-bottom{position:absolute}
+.card-top,.card-bottom{max-width:20px;display:flex;flex-direction:column}
+.card-top{left:10px;top:12px}
+.card-center{top:70px;left:64px;font-size:8rem}
+.card-bottom { bottom: 12px; right: 10px; transform: rotate(180deg) scaleX(-1)}
