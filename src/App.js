@@ -1,25 +1,34 @@
-import React, { Component } from 'react';
+// import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+
 // Components
 import Card from './components/Card'
 import Buttons from './components/Buttons'
+
 // Data
 import { deck } from './utils/Deck'
 
-class App extends Component {
+function App() {
 
-  // Setting State with Constructor
+  // Setting state using useState() Hook  
 
-  constructor() {
-    super();
-    this.state = {
-      cardsArray: deck,
-      hand: [],
-    };    
-  };
+  const [initialDeck, setInitialDeck] = useState(deck)
+  const [hand, setHand] = useState([])
+
+  // Note: Attempted to get the deck to rerender when shuffle button is pressed
+
+    // useEffect(() => {
+
+    //   setInitialDeck(initialDeck)
+
+    // }, [initialDeck])
+
 
   // Shuffles the Deck 
 
-  shuffle = (array) => {
+  const shuffle = (array) => {
+
+    console.log('Shuffling the Deck') //Deck is shuffling, just not re-rendering to show state change
 
     let currentIndex = array.length, temporaryValue, randomIndex;
     
@@ -31,33 +40,29 @@ class App extends Component {
       array[randomIndex] = temporaryValue;
     };
 
-    this.setState({ cardsArray: array })
-    return array;
   };
 
   // Deals one card from the Deck
 
-  dealCard = () => {
-    let cardsArray = this.state.cardsArray;
+  const dealCard = () => {
+    let cardsArray = initialDeck;
     const selectedCard = cardsArray[cardsArray.length - 1]
     const newCardsArray = cardsArray.filter(element => element.index !== selectedCard.index)
-    this.setState({ cardsArray: newCardsArray })
-    let cardsDealtArray = this.state.hand;
+    setInitialDeck(newCardsArray)
+    let cardsDealtArray = hand;
     cardsDealtArray.length < 52 &&
     cardsDealtArray.push(selectedCard);
-    this.setState({ hand: cardsDealtArray })
+    setHand(cardsDealtArray)
   };
 
   // Resets the Deck - Reloads page to rebuild ordered Deck
 
-  reset = () => { window.location.reload(false) }
+  const reset = () => { window.location.reload(false) }
 
   // Render function
 
-  render() {
-
-    const cardsArray = this.state.cardsArray;
-    const dealtCardsArray = this.state.hand;
+    const cardsArray = initialDeck;
+    const dealtCardsArray = hand;
 
     return(
 
@@ -73,7 +78,7 @@ class App extends Component {
           })}
         </div>
 
-        <Buttons state={this.state.cardsArray} shuffle={this.shuffle} dealCard={this.dealCard} reset={this.reset} />
+        <Buttons state={initialDeck} shuffle={shuffle} dealCard={dealCard} reset={reset} />
 
         <div className="hand-container">
           {dealtCardsArray && dealtCardsArray.map((card, index) => {
@@ -83,13 +88,11 @@ class App extends Component {
               </div>
             ); 
           })}
-          
         </div>
 
       </div>
-
     )
-  }
+
 }
 
 export default App;
