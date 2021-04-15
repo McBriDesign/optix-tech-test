@@ -1,5 +1,6 @@
-// import React, { useState, useEffect } from 'react';
 import React, { useState } from 'react';
+
+// import React, { useState } from 'react';
 
 // Components
 import Card from './components/Card'
@@ -12,23 +13,15 @@ function App() {
 
   // Setting state using useState() Hook  
 
+
   const [initialDeck, setInitialDeck] = useState(deck)
   const [hand, setHand] = useState([])
 
-  // Note: Attempted to get the deck to rerender when shuffle button is pressed
-
-    // useEffect(() => {
-
-    //   setInitialDeck(initialDeck)
-
-    // }, [initialDeck])
-
-
   // Shuffles the Deck 
 
-  const shuffle = (array) => {
+  const shuffle = () => {
 
-    console.log('Shuffling the Deck') //Deck is shuffling, just not re-rendering to show state change
+    let array = [...initialDeck]
 
     let currentIndex = array.length, temporaryValue, randomIndex;
     
@@ -40,6 +33,8 @@ function App() {
       array[randomIndex] = temporaryValue;
     };
 
+    setInitialDeck(array)
+   
   };
 
   // Deals one card from the Deck
@@ -61,15 +56,15 @@ function App() {
 
   // Render function
 
-    const cardsArray = initialDeck;
     const dealtCardsArray = hand;
+
 
     return(
 
       <div>
 
         <div className="deck-container">
-          {cardsArray && cardsArray.map((card, index) => {
+          {initialDeck && initialDeck.map((card, index) => {
             return (
               <div className="whole-card" key={index}>
                 <Card suits={card.suit} card={card.value} color={card.color}/>
@@ -78,7 +73,7 @@ function App() {
           })}
         </div>
 
-        <Buttons state={initialDeck} shuffle={shuffle} dealCard={dealCard} reset={reset} />
+        <Buttons state={initialDeck} handle={setInitialDeck} shuffle={shuffle} dealCard={dealCard} reset={reset} />
 
         <div className="hand-container">
           {dealtCardsArray && dealtCardsArray.map((card, index) => {
